@@ -38,7 +38,14 @@ class Watch{
             return array($header, $body);
         }
     }
-  
+  public function ban(){
+    $ban="\e[1;35m
+_  _ ____ _  _ ____ ___ ____  _ _ 
+|_/  |__| |_/  |__|  |  |  |  | | 
+| \_ |  | | \_ |  |  |  |__| _| |
+    \n";
+    echo $ban;
+  }
   public function head($ref=0){
     $head[]="User-Agent: Mozilla/5.0 (Linux; Android 7.0; Redmi Note 4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Mobile Safari/537.36";
     $head[]="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
@@ -61,12 +68,15 @@ class Watch{
     file_put_contents($con,json_encode($arr,JSON_PRETTY_PRINT));
   }
   public function timer($tmr){
+    $bl="\e[1;30m";$r="\e[1;31m";$g="\e[1;32m";
+    $k="\e[1;33m";$bu="\e[1;34m";$p="\e[1;35m";
+    $c="\e[1;36m";$w="\e[1;37m";$cr="\e[0m";
     $tim=time()+$tmr;
     while(true){
       echo "\r                   \r";
       $res=$tim-time();
       if($res < 1){break;}
-      echo date('H:i:s',$res);
+      echo $c.date('H:i:s',$res);
       sleep(1);
     }
   }
@@ -90,7 +100,7 @@ class Watch{
       $this->userme();
     }
     $con=json_decode(file_get_contents("data.json"),1);
-    
+    $this->ban();
     while(1){
     $get=$this->get();
     preg_match('#<input type="hidden" name="token" value="(.*?)" />#is',$get[1],$token);
